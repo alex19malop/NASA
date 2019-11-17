@@ -157,7 +157,7 @@ int signoFuerzaXAsteroideAsteroide(asteroide a, asteroide b){
     if(a.x < b.x) {
         return 1;
     }
-    if(a.x == b.x){
+    else { //if(a.x == b.x)
         return 0;
     }
 }
@@ -168,7 +168,7 @@ int signoFuerzaYAsteroideAsteroide(asteroide a, asteroide b){
     if(a.y < b.y) {
         return 1;
     }
-    if(a.y == b.y){
+    else { //if(a.y == b.y)
         return 0;
     }
 }
@@ -180,7 +180,7 @@ int signoFuerzaXAsteroidePlaneta(asteroide a, planeta b){
     if(a.x < b.x) {
         return 1;
     }
-    if(a.x == b.x){
+    else { //if(a.x == b.x)
         return 0;
     }
 }
@@ -191,7 +191,7 @@ int signoFuerzaYAsteroidePlaneta(asteroide a, planeta b){
     if(a.y < b.y) {
         return 1;
     }
-    if(a.y == b.y){
+    else { //if(a.y == b.y)
         return 0;
     }
 }
@@ -216,12 +216,12 @@ asteroide aplicacionDeFuerzasYAsteroidePlaneta(asteroide a, double fuerzas){
 }
 
 
-asteroide calculoVelociadadX(asteroide a){
+asteroide calculoVelocidadX(asteroide a){
 	a.velocidadx=a.velocidadx+ a.aceleracionx*INTERVALO_TIEMPO;
     return a;
 }
 
-asteroide calculoVelociadadY(asteroide a){
+asteroide calculoVelocidadY(asteroide a){
 	a.velocidady=a.velocidady+ a.aceleraciony*INTERVALO_TIEMPO;
     return a;
 }
@@ -308,7 +308,7 @@ int main(int argc, char *argv[]) {
     cout << "Number of steps: " << argv[2] << "\n";
     cout << "Min. distance: " << DISTANCIA_MIN << "\n";
     cout << "Width: " << WIDTH << "\n";
-    cout << "Height: " << HEIGHT << "\n";
+    cout << "Height: " << HEIGHT << "\n\n";
 
     planeta planetas[num_planetas];
     asteroide asteroides[num_asteroides];
@@ -360,6 +360,9 @@ int main(int argc, char *argv[]) {
         fout << fixed << setprecision(3) << planetas[i].x <<" " << fixed << setprecision(3) << planetas[i].y <<" " << fixed << setprecision(3) << planetas[i].masa << "\n";
     }
 
+    for (int i = 0; i < num_asteroides; i++) {
+        asteroides[i].printAsteroide();
+    }
 
     /* BLUCLE DE ITERACIONES */
 
@@ -369,10 +372,10 @@ int main(int argc, char *argv[]) {
         for (int j = 0; j < stoi(argv[1]); j++) { // Recorremos los asteroides
             double sumFuerzasX = 0;
             double sumFuerzasY = 0;
-            for (int k = ceil(stoi(argv[1])/2); k < stoi(argv[1]); k++) { // Recorremos los asteroide
-                if(j != k){
-                    double dist = distAsteroideAsteroide(asteroides[j], asteroides[k]);
-                    if(dist > 2) {
+            for (int k = ceil(stoi(argv[1])/2); k < stoi(argv[1]); k++) { // Recorremos los num_asteroides
+                double dist = distAsteroideAsteroide(asteroides[j], asteroides[k]);
+                if(dist > 2){
+                    if(j != k){
                         /*Calculamos el angulo de influencia*/
                         /*NO HACE FALTA PORQUE YA ESTAN METIDAS EN EL CALCULO DE FUERZAS
                         double pendiente = pendienteAsteroideAsteroide(asteroides[k], asteroides[j]);
@@ -385,9 +388,17 @@ int main(int argc, char *argv[]) {
                         double fyA = signoFuerzaYAsteroideAsteroide(asteroides[j], asteroides[k]) * fy;
                         sumFuerzasX += fxA;
                         sumFuerzasY += fyA;
-
                         /*Aplicar fuerza y angulo*/
                     }
+                }
+                else{ /*Si los asteroides estan a menos de 2, se producira un choque*/
+                    asteroide auxJ = choqueAsteroide(asteroides[j], asteroides[k]);
+                    asteroide auxK = choqueAsteroide(asteroides[k], asteroides[j]);
+                    asteroides[j] = auxJ;
+                    asteroides[k] = auxK;
+
+
+
                 }
             }
             for (int l = 0; i < stoi(argv[3]); i++) { // Recorremos los planetas
@@ -400,17 +411,20 @@ int main(int argc, char *argv[]) {
                     sumFuerzasX += fxA;
                     sumFuerzasY += fyA;
                 }
-
-
-
             }
             /* Modificamos las aceleraciones */
             asteroides[j] = aplicacionDeFuerzasXAsteroideAsteroide(asteroides[j], sumFuerzasX);
             asteroides[j] = aplicacionDeFuerzasYAsteroideAsteroide(asteroides[j], sumFuerzasY);
             /* Modificamos la velocidad */
+            asteroides[j] = calculoVelocidadX(asteroides[j]);
+            asteroides[j] = calculoVelocidadY(asteroides[j]);
+            /*Modificamos la posicion del asteroide*/
+            asteroides[j] = modificarPosicionX(asteroides[j]);
+            asteroides[j] = modificarPosicionY(asteroides[j]);
+            /*Comprobamos que el asteroide no esté en los bordes del espacio*/
+            asteroides[j] = limiteEspacio(asteroides[j]);
 
         }
-
     }
 
     return 0;
