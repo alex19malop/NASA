@@ -20,8 +20,6 @@ using namespace std;
 
 bool isValidInt(char* x);
 
-
-
 /* Creacion de las estructuras */
 class planeta {
     public:
@@ -298,9 +296,22 @@ int main(int argc, char *argv[]) {
     int num_planetas = stoi (argv[3]);
     int seed = stoi (argv[4]);
 
+    cout << "Execution setup\n\nNumber of bodies: " << num_asteroides << "\n";
+    cout << "Number of iterations: " << argv[2] << "\n";
+    cout << "Initial file: init_conf.txt" << "\n";
+    cout << "Output file: out.txt" << "\n";
+    cout << "Number of planets: " << num_planetas << "\n";
+    cout << "Seed: " << seed << "\n\n";
+    cout << "Number of bodies: " << num_asteroides << "\n";
+    cout << "Gravity : " << G << "\n";
+    cout << "Delta time: " << INTERVALO_TIEMPO << "\n";
+    cout << "Number of steps: " << argv[2] << "\n";
+    cout << "Min. distance: " << DISTANCIA_MIN << "\n";
+    cout << "Width: " << WIDTH << "\n";
+    cout << "Height: " << HEIGHT << "\n";
+
     planeta planetas[num_planetas];
     asteroide asteroides[num_asteroides];
-
 
     default_random_engine re{seed};
     uniform_real_distribution<double> xdist{0.0, std::nextafter(WIDTH, std :: numeric_limits<double>::max())};
@@ -317,51 +328,37 @@ int main(int argc, char *argv[]) {
         asteroides[j].y = ydist(re);
         asteroides[j].masa =  mdist(re);
 
-        cout <<"asteroide coordenada X :" << asteroides[j].x << "\n";
+        /*cout <<"asteroide coordenada X :" << asteroides[j].x << "\n";
         cout << "asteroide coordenada Y :" << asteroides[j].y << "\n";
-        cout << "masa asteroide :" << asteroides[j].masa << "\n";
+        cout << "masa asteroide :" << asteroides[j].masa << "\n";*/
 
         fout << fixed << setprecision(3) << asteroides[j].x <<" " << fixed << setprecision(3) << asteroides[j].y <<" " << fixed << setprecision(3) << asteroides[j].masa << "\n";
-
-
     }
 
     for (int i = 0; i< num_planetas; i++){
-
         if ( i % 4 == 0){
             planetas[i].x = 0;
             planetas[i].y = ydist(re);
         }
-
         else if ( i % 4 == 1){
             planetas[i].x = xdist(re);
             planetas[i].y = 0;
         }
-
         else if ( i % 4 == 2){
             planetas[i].x = WIDTH;
             planetas[i].y = ydist(re);
         }
-
         else if ( i % 4 == 3){
             planetas[i].x = xdist(re);
             planetas[i].y = HEIGHT;
         }
 
         planetas[i].masa = mdist(re) * 10;
-        cout <<"planeta coordenada X :" << planetas[i].x << "\n";
+        /*cout <<"planeta coordenada X :" << planetas[i].x << "\n";
         cout << "planeta coordenada Y :" << planetas[i].y << "\n";
-        cout << "masa planeta :" << planetas[i].masa << "\n";
+        cout << "masa planeta :" << planetas[i].masa << "\n";*/
         fout << fixed << setprecision(3) << planetas[i].x <<" " << fixed << setprecision(3) << planetas[i].y <<" " << fixed << setprecision(3) << planetas[i].masa << "\n";
     }
-
-
-    asteroide alberto{0.0, 199.0, 500.2, 4.0, 7.0, 2.3, 2.7};
-    //alberto.printAsteroide();
-
-    alberto = limiteEspacio(alberto);
-
-    //alberto.printAsteroide();
 
 
     /* BLUCLE DE ITERACIONES */
