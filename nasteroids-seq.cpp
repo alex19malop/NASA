@@ -360,10 +360,6 @@ int main(int argc, char *argv[]) {
         fout << fixed << setprecision(3) << planetas[i].x <<" " << fixed << setprecision(3) << planetas[i].y <<" " << fixed << setprecision(3) << planetas[i].masa << "\n";
     }
 
-    for (int i = 0; i < num_asteroides; i++) {
-        asteroides[i].printAsteroide();
-    }
-
     /* BLUCLE DE ITERACIONES */
 
 
@@ -428,7 +424,7 @@ int main(int argc, char *argv[]) {
     }
 
     /*Imprimimos el archivo out.txt*/
-
+    ALBERTO SUBNORMAL;
     ofstream outTxt("out.txt");
     for (int i = 0; i < stoi(argv[1]); i++) { // Recorremos los asteroides
         outTxt << asteroides[i].x << " " << asteroides[i].y << " " << asteroides[i].velocidadx << " " << asteroides[i].velocidady << " " << asteroides[i].masa << "\n";
