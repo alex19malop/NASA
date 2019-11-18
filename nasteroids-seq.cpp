@@ -362,7 +362,7 @@ int main(int argc, char *argv[]) {
 
     /* BLUCLE DE ITERACIONES */
 
-    //ofstream outTxt("step_by_step.txt");
+
     /*Empezamos con las iteraciones*/
     for (int i = 0; i < stoi(argv[2]); i++) {
         for (int j = 0; j < stoi(argv[1]); j++) { // Recorremos los asteroides
@@ -387,14 +387,13 @@ int main(int argc, char *argv[]) {
                         /*Aplicar fuerza y angulo*/
                     }
                 }
-                /*else{ /*Si los asteroides estan a menos de 2, se producira un choque
+                /*else{ Si los asteroides estan a menos de 2, se producira un choque
                     asteroide auxJ = choqueAsteroide(asteroides[j], asteroides[k]);
                     asteroide auxK = choqueAsteroide(asteroides[k], asteroides[j]);
                     asteroides[j] = auxJ;
                     asteroides[k] = auxK;
                 }*/
             }
-
             for (int l = 0; i < stoi(argv[3]); i++) { // Recorremos los planetas
                 double dist = distAsteroidePlaneta(asteroides[j], planetas[l]);
                 if (dist > 2) {
@@ -418,19 +417,18 @@ int main(int argc, char *argv[]) {
             /*Comprobamos que el asteroide no esté en los bordes del espacio*/
             asteroides[j] = limiteEspacio(asteroides[j]);
 
-
-            /*Rebotes entre asteroides*/
             for (int m = 0; m < stoi(argv[1]); m++) { // Recorremos los num_asteroides
                 double dist = distAsteroideAsteroide(asteroides[j], asteroides[m]);
                 if(dist <= 2 && j != m){
-                asteroide auxJ = choqueAsteroide(asteroides[j], asteroides[m]);
-                asteroide auxK = choqueAsteroide(asteroides[m], asteroides[j]);
-                asteroides[j] = auxJ;
-                asteroides[m] = auxK;
+                    asteroide auxJ = choqueAsteroide(asteroides[j], asteroides[m]);
+                    asteroide auxK = choqueAsteroide(asteroides[m], asteroides[j]);
+                    asteroides[j] = auxJ;
+                    asteroides[m] = auxK;
                 }
        		}
-    	}
-	}
+
+        }
+    }
 
     /*Imprimimos el archivo out.txt*/
     ofstream outTxt("out.txt");
