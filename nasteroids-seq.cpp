@@ -365,8 +365,8 @@ int main(int argc, char *argv[]) {
 
     for (int i = 0; i < stoi(argv[2]); i++) { /*Empezamos con las iteraciones*/
         step << "******************** ITERATION *******************\n";
-        float fuerzasAsteroidesX[num_asteroides];
-        float fuerzasAsteroidesY[num_asteroides];
+        double fuerzasAsteroidesX[num_asteroides];
+        double fuerzasAsteroidesY[num_asteroides];
 
         for (int j = 0; j < stoi(argv[1]); j++) { // Recorremos los asteroides
             double sumFuerzasX = 0;
