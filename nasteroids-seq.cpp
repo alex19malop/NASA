@@ -427,6 +427,13 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    /*Imprimimos el archivo out.txt*/
+
+    ofstream outTxt("out.txt");
+    for (int i = 0; i < stoi(argv[1]); i++) { // Recorremos los asteroides
+        outTxt << asteroides[i].x << " " << asteroides[i].y << " " << asteroides[i].velocidadx << " " << asteroides[i].velocidady << " " << asteroides[i].masa << "\n";
+    }
+
     return 0;
 }
 
