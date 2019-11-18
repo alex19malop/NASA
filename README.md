@@ -1,6 +1,6 @@
-# NASA
+# NASA 🚀
 
-## Comenzando 🚀
+## Comenzando
 ### Instalación 🔧
 _Para compilar el archivo.cpp escribe lo siguiente en el terminal, debe tener instalado gcc_
 ```
