@@ -243,22 +243,22 @@ asteroide modificarPosicionY(asteroide a){
 
 asteroide limiteEspacio(asteroide a){
     if(a.x <= 0){
-        cout << "menor o igual que cero en el eje de las x\n\n";
+        /*cout << "menor o igual que cero en el eje de las x\n\n";*/
         a.x = 5.0;
         a.velocidadx = -1 * a.velocidadx;
     }
     if(a.y <= 0){
-        cout << "menor o igual que cero en el eje de las y\n\n";
+        /*cout << "menor o igual que cero en el eje de las y\n\n";*/
         a.y = 5.0;
         a.velocidady = -1 * a.velocidady;
     }
     if(a.x >= WIDTH){
-        cout << "menor o igual que width en el eje de las x\n\n";
+        /*cout << "menor o igual que width en el eje de las x\n\n";*/
         a.x = WIDTH - 5.0;
         a.velocidadx = -1 * a.velocidadx;
     }
     if(a.y >= HEIGHT){
-        cout << "menor o igual que height en el eje de las y\n\n";
+        /*cout << "menor o igual que height en el eje de las y\n\n";*/
         a.y = HEIGHT - 5.0;
         a.velocidady = -1 * a.velocidady;
     }
