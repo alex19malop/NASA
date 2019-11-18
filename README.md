@@ -1,4 +1,4 @@
-# 🚀🚀🚀 NASA 🚀🚀🚀
+# NASA 🚀
 
 ## Comenzando
 ### Instalación 🔧
