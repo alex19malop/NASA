@@ -48,7 +48,7 @@ class asteroide {
         double masa;
         double velocidadx;
         double velocidady;
-        double aceleracionx;
+        double aceleracionx; 
         double aceleraciony;
 
         asteroide(double cx,double cy, double cmasa, double cvelocidadx, double cvelocidady, double caceleracionx, double caceleraciony):
