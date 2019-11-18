@@ -112,7 +112,7 @@ double angulo(double pendiente){
 
 /*Fuerza de atraccion entre dos asteroides en el eje x */
 double fuerzaAtraccionXAsteroideAsteroide(asteroide a, asteroide b) {
-    double fx = (G * a.masa * b.masa)/(distAsteroideAsteroide(a, b)) * cos(angulo(pendienteAsteroideAsteroide(a, b)));
+    double fx = (G * a.masa * b.masa)/(distAsteroideAsteroide(a, b) * distAsteroideAsteroide(a, b)) * cos(angulo(pendienteAsteroideAsteroide(a, b)));
     if(fx > 100){
         return 100.0;
     }
@@ -121,7 +121,7 @@ double fuerzaAtraccionXAsteroideAsteroide(asteroide a, asteroide b) {
     }
 }
 double fuerzaAtraccionXAsteroidePlaneta(asteroide a, planeta b) {
-    double fx = (G * a.masa * b.masa)/(distAsteroidePlaneta(a, b)) * cos(angulo(pendienteAsteroidePlaneta(a, b)));
+    double fx = (G * a.masa * b.masa)/(distAsteroidePlaneta(a, b) * distAsteroidePlaneta(a, b)) * cos(angulo(pendienteAsteroidePlaneta(a, b)));
     if(fx > 100){
         return 100.0;
     }
@@ -132,7 +132,7 @@ double fuerzaAtraccionXAsteroidePlaneta(asteroide a, planeta b) {
 
 /*Fuerza de atraccion entre dos asteroides en el eje y */
 double fuerzaAtraccionYAsteroideAsteroide(asteroide a, asteroide b) {
-    double fy = (G * a.masa * b.masa)/(distAsteroideAsteroide(a, b)) * sin(angulo(pendienteAsteroideAsteroide(a, b)));
+    double fy = (G * a.masa * b.masa)/(distAsteroideAsteroide(a, b) * distAsteroideAsteroide(a, b)) * sin(angulo(pendienteAsteroideAsteroide(a, b)));
     if(fy > 100){
         return 100.0;
     }
@@ -141,7 +141,7 @@ double fuerzaAtraccionYAsteroideAsteroide(asteroide a, asteroide b) {
     }
 }
 double fuerzaAtraccionYAsteroidePlaneta(asteroide a, planeta b) {
-    double fy = (G * a.masa * b.masa)/(distAsteroidePlaneta(a, b)) * sin(angulo(pendienteAsteroidePlaneta(a, b)));
+    double fy = (G * a.masa * b.masa)/(distAsteroidePlaneta(a, b) * distAsteroidePlaneta(a, b)) * sin(angulo(pendienteAsteroidePlaneta(a, b)));
     if(fy > 100){
         return 100.0;
     }
