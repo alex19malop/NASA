@@ -425,8 +425,7 @@ int main(int argc, char *argv[]) {
                     asteroides[j] = auxJ;
                     asteroides[m] = auxK;
                 }
-       		} 
-
+            }
         }
     }
 
