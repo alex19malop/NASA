@@ -361,13 +361,17 @@ int main(int argc, char *argv[]) {
     }
 
     /* BLUCLE DE ITERACIONES */
+    ofstream step("step_by_step.txt");
 
+    for (int i = 0; i < stoi(argv[2]); i++) { /*Empezamos con las iteraciones*/
+        step << "******************** ITERATION *******************\n";
+        float fuerzasAsteroidesX[num_asteroides];
+        float fuerzasAsteroidesY[num_asteroides];
 
-    /*Empezamos con las iteraciones*/
-    for (int i = 0; i < stoi(argv[2]); i++) {
         for (int j = 0; j < stoi(argv[1]); j++) { // Recorremos los asteroides
             double sumFuerzasX = 0;
             double sumFuerzasY = 0;
+            step << "--- asteroids vs asteroids ---\n";
             for (int k = 0; k < stoi(argv[1]); k++) { // Recorremos los num_asteroides
                 double dist = distAsteroideAsteroide(asteroides[j], asteroides[k]);
                 if(dist > 2){
@@ -384,6 +388,10 @@ int main(int argc, char *argv[]) {
                         double fyA = signoFuerzaYAsteroideAsteroide(asteroides[j], asteroides[k]) * fy;
                         sumFuerzasX += fxA;
                         sumFuerzasY += fyA;
+
+                        double pendiente = pendienteAsteroideAsteroide(asteroides[j], asteroides[k]);
+                        double alfa = angulo(pendiente);
+                        step << j << " " << k << " " << sqrt(pow(fx, 2) + pow(fy, 2)) << " " << alfa << "\n";
                         /*Aplicar fuerza y angulo*/
                     }
                 }
@@ -394,7 +402,8 @@ int main(int argc, char *argv[]) {
                     asteroides[k] = auxK;
                 }*/
             }
-            for (int l = 0; i < stoi(argv[3]); i++) { // Recorremos los planetas
+            step << "--- asteroids vs planets ---\n";
+            for (int l = 0; l < stoi(argv[3]); l++) { // Recorremos los planetas
                 double dist = distAsteroidePlaneta(asteroides[j], planetas[l]);
                 if (dist > 2) {
                     double fx = fuerzaAtraccionXAsteroidePlaneta(asteroides[j], planetas[l]);
@@ -403,11 +412,20 @@ int main(int argc, char *argv[]) {
                     double fyA = signoFuerzaYAsteroidePlaneta(asteroides[j], planetas[l]) * fy;
                     sumFuerzasX += fxA;
                     sumFuerzasY += fyA;
+
+                    double pendiente = pendienteAsteroidePlaneta(asteroides[j], planetas[l]);
+                    double alfa = angulo(pendiente);
+                    step << j << " " << l << " " << sqrt(pow(fx, 2) + pow(fy, 2)) << " " << alfa << "\n";
                 }
             }
-            /* Modificamos las aceleraciones */
-            asteroides[j] = aplicacionDeFuerzasXAsteroideAsteroide(asteroides[j], sumFuerzasX);
-            asteroides[j] = aplicacionDeFuerzasYAsteroideAsteroide(asteroides[j], sumFuerzasY);
+            /* Guardamos las aceleraciones en su correspondiente array */
+
+            fuerzasAsteroidesX[j] = sumFuerzasX;
+            fuerzasAsteroidesY[j] = sumFuerzasY;
+        }
+        for (int j = 0; j < num_asteroides; j++) {
+            asteroides[j] = aplicacionDeFuerzasXAsteroideAsteroide(asteroides[j], fuerzasAsteroidesX[j]);
+            asteroides[j] = aplicacionDeFuerzasYAsteroideAsteroide(asteroides[j], fuerzasAsteroidesY[j]);
             /* Modificamos la velocidad */
             asteroides[j] = calculoVelocidadX(asteroides[j]);
             asteroides[j] = calculoVelocidadY(asteroides[j]);
@@ -416,7 +434,8 @@ int main(int argc, char *argv[]) {
             asteroides[j] = modificarPosicionY(asteroides[j]);
             /*Comprobamos que el asteroide no esté en los bordes del espacio*/
             asteroides[j] = limiteEspacio(asteroides[j]);
-
+        }
+        for (int j = 0; j < num_asteroides; j++) {
             for (int m = 0; m < stoi(argv[1]); m++) { // Recorremos los num_asteroides
                 double dist = distAsteroideAsteroide(asteroides[j], asteroides[m]);
                 if(dist <= 2 && j != m){
@@ -427,6 +446,7 @@ int main(int argc, char *argv[]) {
                 }
             }
         }
+
     }
 
     /*Imprimimos el archivo out.txt*/
