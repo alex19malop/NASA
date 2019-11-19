@@ -154,52 +154,6 @@ double fuerzaAtraccionYAsteroidePlaneta(asteroide a, planeta b) {
     }
 }
 
-/*int signoFuerzaXAsteroideAsteroide(asteroide a, asteroide b){
-    if(a.x > b.x) {
-        return -1;
-    }
-    if(a.x < b.x) {
-        return 1;
-    }
-    else { //if(a.x == b.x)
-        return 0;
-    }
-}
-int signoFuerzaYAsteroideAsteroide(asteroide a, asteroide b){
-    if(a.y > b.y) {
-        return -1;
-    }
-    if(a.y < b.y) {
-        return 1;
-    }
-    else { //if(a.y == b.y)
-        return 0;
-    }
-}
-
-int signoFuerzaXAsteroidePlaneta(asteroide a, planeta b){
-    if(a.x > b.x) {
-        return -1;
-    }
-    if(a.x < b.x) {
-        return 1;
-    }
-    else { //if(a.x == b.x)
-        return 0;
-    }
-}
-int signoFuerzaYAsteroidePlaneta(asteroide a, planeta b){
-    if(a.y > b.y) {
-        return -1;
-    }
-    if(a.y < b.y) {
-        return 1;
-    }
-    else { //if(a.y == b.y)
-        return 0;
-    }
-}*/
-
 asteroide aplicacionDeFuerzasXAsteroideAsteroide(asteroide a, double fuerzas){
 	a.aceleracionx=(1/a.masa)*fuerzas;
     return a;
@@ -314,8 +268,10 @@ int main(int argc, char *argv[]) {
     cout << "Width: " << WIDTH << "\n";
     cout << "Height: " << HEIGHT << "\n\n";
 
-    planeta planetas[num_planetas];
-    asteroide asteroides[num_asteroides];
+    planeta *planetas;
+    planetas = new planeta[num_planetas];
+    asteroide *asteroides;
+    asteroides = new asteroide[num_asteroides];
 
     default_random_engine re{seed};
     uniform_real_distribution<double> xdist{0.0, std::nextafter(WIDTH, std :: numeric_limits<double>::max())};
@@ -372,8 +328,10 @@ int main(int argc, char *argv[]) {
 
     for (int i = 0; i < stoi(argv[2]); i++) {
         step << "******************** ITERATION *******************\n";
-        double fuerzasAsteroidesX[num_asteroides];
-        double fuerzasAsteroidesY[num_asteroides];
+        double *fuerzasAsteroidesX;
+        fuerzasAsteroidesX = new double[num_asteroides];
+        double *fuerzasAsteroidesY;
+        fuerzasAsteroidesY = new double[num_asteroides];
 
         for (int j = 0; j < stoi(argv[1]); j++) { // Recorremos los asteroides
             double sumFuerzasX = 0;
@@ -457,7 +415,6 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < stoi(argv[1]); i++) { // Recorremos los asteroides
         outTxt << fixed << setprecision(3) << asteroides[i].x << " " << fixed << setprecision(3) << asteroides[i].y << " " << fixed << setprecision(3) << asteroides[i].velocidadx << " " << fixed << setprecision(3) << asteroides[i].velocidady << " " << fixed << setprecision(3) << asteroides[i].masa << "\n";
     }
-
     return 0;
 }
 
