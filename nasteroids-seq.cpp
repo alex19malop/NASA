@@ -362,8 +362,8 @@ int main(int argc, char *argv[]) {
 
             step << "--- asteroids vs planets ---\n";
             for (int l = 0; l < stoi(argv[3]); l++) { // Recorremos los planetas
-                double dist = distAsteroidePlaneta(asteroides[j], planetas[l]);
-                if (dist > 2) {
+                /*double dist = distAsteroidePlaneta(asteroides[j], planetas[l]);
+                if (dist > 2) {*/
                     double fx = fuerzaAtraccionXAsteroidePlaneta(asteroides[j], planetas[l]);
                     double fy = fuerzaAtraccionYAsteroidePlaneta(asteroides[j], planetas[l]);
                     sumFuerzasX += fx;
@@ -372,7 +372,7 @@ int main(int argc, char *argv[]) {
                     double pendiente = pendienteAsteroidePlaneta(asteroides[j], planetas[l]);
                     double alfa = angulo(pendiente);
                     step << j << " " << l << " " << sqrt(pow(fx, 2) + pow(fy, 2)) << " " << alfa << "\n";
-                }
+                //}
             }
 
             /* Guardamos las aceleraciones en su correspondiente array */
