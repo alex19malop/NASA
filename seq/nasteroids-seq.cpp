@@ -325,13 +325,10 @@ int main(int argc, char *argv[]) {
     }
 
     /* BLUCLE DE ITERACIONES */
-    ofstream step("step_by_step.txt");
-
 
     /*Empezamos con las iteraciones*/
 
     for (int i = 0; i < stoi(argv[2]); i++) {
-        step << "******************** ITERATION *******************\n";
         double *fuerzasAsteroidesX;
         fuerzasAsteroidesX = new double[num_asteroides];
         double *fuerzasAsteroidesY;
@@ -340,7 +337,6 @@ int main(int argc, char *argv[]) {
         for (int j = 0; j < stoi(argv[1]); j++) { // Recorremos los asteroides
             double sumFuerzasX = 0;
             double sumFuerzasY = 0;
-            step << "--- asteroids vs asteroids ---\n";
 
             for (int k = 0; k < stoi(argv[1]); k++) { // Recorremos los num_asteroides
                 double dist = distAsteroideAsteroide(asteroides[j], asteroides[k]);
@@ -355,16 +351,10 @@ int main(int argc, char *argv[]) {
                     double fy = fuerzaAtraccionYAsteroideAsteroide(asteroides[j], asteroides[k]);
                     sumFuerzasX += fx;
                     sumFuerzasY += fy;
-
-                    double pendiente = pendienteAsteroideAsteroide(asteroides[j], asteroides[k]);
-                    double alfa = angulo(pendiente);
-                    step << j << " " << k << " " << sqrt(pow(fx, 2) + pow(fy, 2)) << " " << alfa << "\n";
                     /*Aplicar fuerza y angulo*/
                 }
             }
 
-
-            step << "--- asteroids vs planets ---\n";
             for (int l = 0; l < stoi(argv[3]); l++) { // Recorremos los planetas
                 /*double dist = distAsteroidePlaneta(asteroides[j], planetas[l]);
                 if (dist > 2) {*/
@@ -372,10 +362,6 @@ int main(int argc, char *argv[]) {
                     double fy = fuerzaAtraccionYAsteroidePlaneta(asteroides[j], planetas[l]);
                     sumFuerzasX += fx;
                     sumFuerzasY += fy;
-
-                    double pendiente = pendienteAsteroidePlaneta(asteroides[j], planetas[l]);
-                    double alfa = angulo(pendiente);
-                    step << j << " " << l << " " << sqrt(pow(fx, 2) + pow(fy, 2)) << " " << alfa << "\n";
                 //}
             }
 
