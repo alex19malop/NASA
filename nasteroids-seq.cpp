@@ -8,6 +8,7 @@
 #include <random>
 #include <fstream>
 #include <iomanip>
+#include <chrono>
 #define G (6.674*pow(10, -5))
 #define INTERVALO_TIEMPO 0.1
 #define DISTANCIA_MIN 2.0
@@ -17,6 +18,7 @@
 #define SDM 50
 
 using namespace std;
+using clk = chrono::high_resolution_clock;
 
 bool isValidInt(char* x);
 
@@ -234,6 +236,8 @@ asteroide choqueAsteroide(asteroide a, asteroide b){
 
 int main(int argc, char *argv[]) {
 
+    auto t1 = clk :: now();
+
     /* Comprobamos que los datos introducidos son correctos */
     if(argc != 5){
        cout << "Tiene que introducir 4 parametros" << "\n";
@@ -406,9 +410,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
-
-
-
+    auto t2 = clk :: now();
+    cout << std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count() << "\n";
 
     /*Imprimimos el archivo out.txt*/
     ofstream outTxt("out.txt");
