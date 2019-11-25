@@ -16,7 +16,7 @@
 #define HEIGHT 200
 #define MASS 1000
 #define SDM 50
-#define NUMERO_HILOS 4
+#define NUMERO_HILOS 2
 
 using namespace std;
 using clk = chrono::high_resolution_clock;
@@ -352,7 +352,7 @@ int main(int argc, char *argv[]) {
 
             #pragma omp parallel num_threads(NUMERO_HILOS)
             {
-            #pragma omp parallel for schedule(static)
+            #pragma omp parallel for reduction( +: sumFuerzasX, sumFuerzasY )
             for (int k = 0; k < stoi(argv[1]); k++) { // Recorremos los num_asteroides
                 double dist = distAsteroideAsteroide(asteroides[j], asteroides[k]);
                 if(dist > 2 && j != k){
@@ -369,7 +369,7 @@ int main(int argc, char *argv[]) {
             //step << "--- asteroids vs planets ---\n";
             #pragma omp parallel num_threads(NUMERO_HILOS)
             {
-            #pragma omp parallel for schedule(static)
+            #pragma omp parallel for reduction( +: sumFuerzasX, sumFuerzasY )
             for (int l = 0; l < stoi(argv[3]); l++) { // Recorremos los planetas
                     double fx = fuerzaAtraccionXAsteroidePlaneta(asteroides[j], planetas[l]);
                     double fy = fuerzaAtraccionYAsteroidePlaneta(asteroides[j], planetas[l]);
